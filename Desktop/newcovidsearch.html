@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .App {
+    text-align: center;
+    margin: auto;
+    width: 770px;
+    padding-top: 150px;
+  }
+  .Main{
+    width: auto;
+    
+    padding-block-end: 262px;
+    background-color: white
+  }
+  #Search {
+    text-align: center;
+    margin: auto;
+    width: 500px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+  #loadData {
+    margin-top: 40px;
+    background-color: #ea1d6f;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #table {
+    text-align: center;
+    margin: auto;
+    width: 770px;
+  }
+  .heading{
+    border-bottom: inset;
+    text-align: left;
+}
+.Name{
+    border-bottom: inset;
+}
+.Requirement{
+    border-bottom: inset;  
+}
+.Area{
+    border-bottom: inset;
+}
+.Location{
+    border-bottom: inset;
+}
+.ContactNo{
+    border-bottom: inset; 
+}
+body {
+  background: linear-gradient(to right, #ea1d6f 0%, #eb466b 100%);
+  font-size: 12px;
+}
+.Border{
+  border: ridge;
+  background-color: white
+ 
+}
+.screen {
+  position: relative;
+  background: #3e3e3e;
+  border-radius: 15px;
+}
+.output-data{
+    color:white;
+}
+    </style>
+</head>
+<body>   
+    <div class="App">
+        <div class="Main screen">
+  <input type="text" id="Search" name="Search" placeholder="Search with State/City/Demand">
+ <button type="button" id="loadData">Contact your Covid Hero</button>  
+ <div id="output" class="output-data" ></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+      
+      $('#loadData').click(function () {
+        var searchResult= document.getElementById("Search").value
+                var url = 'https://script.google.com/macros/s/AKfycbxGc-spRdgfIlgjN5c4Ph-6urmF9oTeAD6PV8A7wGMVNVsGaNrq5SiR9zCDEZYFwngB/exec'
+                $.getJSON(url, function (data) {
+                    var html = '<h3>Choose your Covid Hero </h3><table id="table">  ';
+                        html+= '<tr id="heading">  <th class="Name">Name</th> <th class="Requirement">Requirement</th>  <th class="Location">Location</th> <th class="Area">Area</th> <th class="ContactNo">Contact No</th> </tr>'; 
+                    $.each(data, function (key, val) {
+                      if(searchResult==val[0]||searchResult==val[1]||searchResult==val[2]||searchResult==val[3]||searchResult==val[4]){
+                            html +='<tr> <td class="Name">'+ val[0] + ' </td> ';
+                            html +='<td class="Requirement">'+ val[1] + ' </td> ';
+                            html +='<td class="Location">'+ val[2] + ' </td> ';
+                            html +='<td class="Area">'+ val[3] + ' </td> ';
+                            html +='<td class="ContactNo">'+ val[4] + ' </td> </tr>';    
+                         
+                      }  })
+                    html += '</table>'
+                    $('#output').html(html);
+                })
+            })
+			 });
+			 
+ </script>
+ </div>
+</div>
+ </body>
+</html>
